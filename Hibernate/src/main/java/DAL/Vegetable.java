@@ -38,4 +38,6 @@ public class Vegetable {
     @ManyToOne
     @JoinColumn(name = "CatagoryID")
     private Category catagory;
+    @OneToMany (mappedBy = "vegetable")
+    private List<OrderDetails> listOrderItem;
 }
