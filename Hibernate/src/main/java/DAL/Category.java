@@ -4,42 +4,32 @@
  * and open the template in the editor.
  */
 package DAL;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.*;
+import javax.persistence.Table;
+import lombok.Data;
+import org.hibernate.*;
 
 /**
  *
  * @author Admin
  */
+@Data
+@Entity
+@Table (name = "category")
 public class Category {
-    int categoryId;
-    String name,description;
+    @Id
+    private int CatagoryId;
+    @Column
+    private String Name;
+    @Column 
+    private String Description;
     
-    public Category(){
-        
-    }
-    public Category(int categoryId, String name, String description){
-        
-    }
-    public int getCategoryId() {
-        return categoryId;
-    }
+    @OneToMany (mappedBy = "catagory")
+    private List<Vegetable> listVegetable;
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

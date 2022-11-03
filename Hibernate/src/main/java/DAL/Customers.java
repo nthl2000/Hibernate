@@ -4,59 +4,36 @@
  * and open the template in the editor.
  */
 package DAL;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import lombok.Data;
+import org.hibernate.*;
 /**
  *
  * @author Admin
  */
+@Data
+@Entity
+@Table (name = "customers")
 public class Customers {
-    int customerId;
-    String password, fullName,address,city;
-    public Customers(){
-        
-    }
-    public Customers(int customerId,String password, String fullName, String address, String city){
-        
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+    
+    @Id 
+    private int CustomerId;
+    @Column
+    private String password;
+    @Column 
+    private String fullName;
+    @Column 
+    private String address;
+    @Column
+    private String city;
+    @OneToMany (mappedBy = "customer")
+    private List <Order> listOrder;
+    
     
 }

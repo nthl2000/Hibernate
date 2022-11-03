@@ -4,18 +4,30 @@
  * and open the template in the editor.
  */
 package DAL;
-
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import lombok.Data;
+import org.hibernate.*;
 /**
  *
  * @author Admin
  */
-public class OrderDetails {
-    int quantity;
-    double Price;
-    public OrderDetails(){
-        
-    }
-    public OrderDetails(int quantity, double Price){
-        
-    }
+@Data
+@Entity
+@Table (name = "orderdetail")
+public class OrderDetails implements Serializable{
+    @EmbeddedId
+    private int orderId;
+    private int vegetableId;
+    @Column 
+    private int quantity;
+    @Column 
+    private double price;
+    
 }

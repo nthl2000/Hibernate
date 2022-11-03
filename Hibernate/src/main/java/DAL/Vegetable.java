@@ -4,72 +4,38 @@
  * and open the template in the editor.
  */
 package DAL;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import lombok.Data;
+import org.hibernate.*;
 /**
  *
  * @author Admin
  */
-public class Vegetable extends Category {
+@Data
+@Entity
+@Table (name = "vegetable")
+public class Vegetable {
 
-    int vegetableId, amount;
-    String vegetableName, unit, image;
-    double price;
-
-    public Vegetable() {
-
-    }
-
-    public Vegetable(int vegetableId, int categoryId, String vegetableName, String unit, int amount, String image, double price) {
-
-    }
-
-    public int getVegetableId() {
-        return vegetableId;
-    }
-
-    public void setVegetableId(int vegetableId) {
-        this.vegetableId = vegetableId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getVegetableName() {
-        return vegetableName;
-    }
-
-    public void setVegetableName(String vegetableName) {
-        this.vegetableName = vegetableName;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    @Id
+    private int vegetableId;
+    @Column
+    private String vegetableName;
+    @Column
+    private String unit;
+    @Column
+    private int amount;
+    @Column
+    private String image;
+    @Column 
+    private double price;
     
-
+    @ManyToOne
+    @JoinColumn(name = "CatagoryID")
+    private Category catagory;
 }

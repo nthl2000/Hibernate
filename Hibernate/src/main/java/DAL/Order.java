@@ -4,59 +4,33 @@
  * and open the template in the editor.
  */
 package DAL;
-
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import lombok.Data;
+import org.hibernate.*;
 /**
  *
  * @author Admin
  */
+@Data
+@Entity
+@Table (name = "order")
 public class Order {
-    int orderId,customerId;
-    String date,note;
-    double Total;
-    public Order(){
-        
-    }
-    public Order(int orderId, int customerId, String date, String note,double Total){
-        
-    }
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Double getTotal() {
-        return Total;
-    }
-
-    public void setTotal(Double Total) {
-        this.Total = Total;
-    }
-    
+    @Id
+    private int orderId;
+    @Column
+    private Date date;
+    @Column 
+    private double total;
+    @Column 
+    private String note;
+    @ManyToOne
+    @JoinColumn(name = "CustomerID")
+    private Customers customer;
 }
