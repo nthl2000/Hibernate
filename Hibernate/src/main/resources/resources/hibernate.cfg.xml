@@ -19,7 +19,16 @@
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
         <!-- Entity mapping -->
-        <!-- <mapping class="demopl.DAL.Course" /> -->
-        <mapping resource = "Department.hbm.xml"/>
+         <mapping class="DAL.Category" /> 
+         <mapping resource = "Category.hbm.xml"/>
+         <mapping class="DAL.Customers" /> 
+         <mapping resource = "Customers.hbm.xml"/>
+         <mapping class="DAL.Order" /> 
+         <mapping resource = "Order.hbm.xml"/>
+         <mapping class="DAL.OrderDetails /> 
+         <mapping resource = "OrderDetails.hbm.xml"/>
+         <mapping class="DAL.Vegetable" /> 
+         <mapping resource = "Vegetable.hbm.xml"/>
+        
     </session-factory>
 </hibernate-configuration>
