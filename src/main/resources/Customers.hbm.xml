@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+    <class name = "Hibernate.DAL.Customers" table = "Customers">
+      
+        <meta attribute = "class-description">
+            This class contains the customers detail. 
+        </meta>
+      
+        <id name = "customerID" type = "int" column = "CustomerID">
+            <generator class="native"/>
+        </id>
+      
+        <property name = "password" column = "Password" type = "string"/>
+        <property name = "fullName" column = "Fullname" type = "string"/>
+        <property name = "address" column = "Address" type = "string"/>
+        <property name = "city" column = "City" type = "string"/>
+
+      
+    </class>
+</hibernate-mapping>

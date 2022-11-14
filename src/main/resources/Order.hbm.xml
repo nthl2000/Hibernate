@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+    <class name = "Hibernate.DAL.Order" table = "Order">
+      
+        <meta attribute = "class-description">
+            This class contains the customers detail. 
+        </meta>
+      
+        <id name = "orderID" type = "int" column = "OrderID">
+            <generator class="native"/>
+        </id>
+        <property name = "customerId" column = "CustomerID" type = "string"/>
+        <property name = "date" column = "Date" type = "string"/>
+        <property name = "total" column = "Total" type = "double"/>
+        <property name = "note" column = "Note" type = "string"/>      
+    </class>
+</hibernate-mapping>

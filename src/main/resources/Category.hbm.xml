@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "Hibernate.DAL.Category" table = "Category">
+      
+      <meta attribute = "class-description">
+         This class contains the category detail. 
+      </meta>
+      
+      <id name = "categoryID" type = "int" column = "CatagoryID">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "name" column = "Name" type = "string"/>
+      <property name = "description" column = "Description" type = "string"/>
+      
+   </class>
+</hibernate-mapping>

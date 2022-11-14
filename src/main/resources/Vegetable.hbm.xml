@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+    <class name = "Hibernate.DAL.Vegetable" table = "Vegetable">
+      
+        <meta attribute = "class-description">
+            This class contains the orderdetails. 
+        </meta>
+      
+        <id name = "vegetableId" type = "int" column = "VegetableID">
+            <generator class="native"/>
+        </id>
+        <property name = "categoryId" column = "CatagoryID" type = "int"/>
+        <property name = "vegetableName" column = "VegetableName" type = "string"/>
+        <property name = "unit" column = "Unit" type = "string"/>
+        <property name = "amount" column = "Amount" type = "int"/>   
+        <property name = "image" column = "Image" type = "string"/>             
+        <property name = "price" column = "Price" type = "double"/>   
+        
+    </class>
+</hibernate-mapping>
