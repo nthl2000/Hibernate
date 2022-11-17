@@ -22,4 +22,11 @@ public class CustomerDAL {
         session.getTransaction().commit();
         return obj;
     }
+    public List loadCustomer(){
+        List<Customers> customer;
+        session.beginTransaction();
+        customer = session.createQuery("FROM customers",Customers.class).list();
+        session.getTransaction().commit();
+        return customer;
+    }
 }

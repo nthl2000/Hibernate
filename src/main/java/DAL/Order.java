@@ -31,7 +31,7 @@ public class Order {
     @Column 
     private String note;
     @ManyToOne
-    @JoinColumn(name = "CustomerID")
+    @JoinColumn(name = "customerID")
     private Customers customer;
     @OneToMany (mappedBy = "order")
     private List<OrderDetails> listOrderDetails;

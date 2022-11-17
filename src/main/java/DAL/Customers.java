@@ -23,7 +23,7 @@ import org.hibernate.*;
 public class Customers {
     
     @Id 
-    private int CustomerId;
+    private int customerId;
     @Column
     private String password;
     @Column 
@@ -32,7 +32,7 @@ public class Customers {
     private String address;
     @Column
     private String city;
-    @OneToMany (mappedBy = "customer")
+    @OneToMany (mappedBy = "customers")
     private List <Order> listOrder;
     
     

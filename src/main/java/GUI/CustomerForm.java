@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import BLL.CustomerBLL;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Admin
@@ -14,8 +17,18 @@ public class CustomerForm extends javax.swing.JFrame {
     /**
      * Creates new form CustomerForm
      */
+    private CustomerBLL cusBLL;
     public CustomerForm() {
         initComponents();
+        cusBLL = new CustomerBLL();
+        loadCustomerTable();
+    }
+    public void loadCustomerTable(){
+        List listCus = cusBLL.loadCategory();
+        Object[][] datamodel = cusBLL.convertList(listCus);
+        String[] title = {"TT", "CustomerID", "Password", "Fullname","Address","City"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
     }
 
     /**
