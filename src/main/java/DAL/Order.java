@@ -20,7 +20,7 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "order")
+@Table (name = "Order")
 public class Order {
     @Id
     @GeneratedValue

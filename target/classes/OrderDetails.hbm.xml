@@ -14,7 +14,8 @@
         <id name = "orderID" type = "int" column = "OrderID">
             <generator class="native"/>
         </id>
-        <property name = "vegetableId" column = "VegetableID" type = "int"/>
+        <id name = "vegetableId" type = "int" column = "VegetableID">
+            <generator class="native"/></id>
         <property name = "quantity" column = "Quantity" type = "int"/>
         <property name = "price" column = "Price" type = "double"/>   
     </class>

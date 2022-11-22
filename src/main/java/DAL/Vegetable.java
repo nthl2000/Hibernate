@@ -19,7 +19,7 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "vegetable")
+@Table (name = "Vegetable")
 public class Vegetable {
 
     @Id
