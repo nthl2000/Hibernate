@@ -20,7 +20,7 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "category")
+@Table
 public class Category {
     @Id
     private int CatagoryID;
