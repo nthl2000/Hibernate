@@ -23,6 +23,7 @@ import org.hibernate.*;
 @Table (name = "order")
 public class Order {
     @Id
+    @GeneratedValue
     private int orderId;
     @Column
     private Date date;

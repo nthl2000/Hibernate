@@ -23,6 +23,7 @@ import org.hibernate.*;
 public class Vegetable {
 
     @Id
+    @GeneratedValue
     private int vegetableId;
     @Column
     private String vegetableName;

@@ -22,7 +22,8 @@ import org.hibernate.*;
 @Table (name = "customers")
 public class Customers {
     
-    @Id 
+    @Id
+    @GeneratedValue
     private int customerId;
     @Column
     private String password;
