@@ -23,8 +23,8 @@ import org.hibernate.*;
 @Embeddable
 public class OrderDetails_Id implements Serializable {
 
-    protected int orderId;
-    protected int vegetableId;
+    int orderId;
+    int vegetableId;
 
     public OrderDetails_Id() {
 

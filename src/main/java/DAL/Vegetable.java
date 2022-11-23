@@ -19,11 +19,10 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "Vegetable")
+@Table (name = "vegetable")
 public class Vegetable {
 
     @Id
-    @GeneratedValue
     private int vegetableId;
     @Column
     private String vegetableName;

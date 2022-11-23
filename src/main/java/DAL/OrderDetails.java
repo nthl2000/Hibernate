@@ -20,9 +20,9 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "OrderDetail")
+@Table (name = "orderdetail")
 public class OrderDetails implements Serializable{
-    @EmbeddedId
+    @Id
     private int orderId;
     private int vegetableId;
     @Column 

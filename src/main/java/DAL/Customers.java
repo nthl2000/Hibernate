@@ -19,11 +19,10 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "Customers")
+@Table (name = "customers")
 public class Customers {
     
-    @Id
-    @GeneratedValue
+    @Id 
     private int customerId;
     @Column
     private String password;
@@ -33,19 +32,8 @@ public class Customers {
     private String address;
     @Column
     private String city;
-    @OneToMany (mappedBy = "customers")
-    private List <Order> listOrder;
-    
-//    Constructor
-
-    public Customers(int customerId, String password, String fullName, String address, String city, List<Order> listOrder) {
-        this.customerId = customerId;
-        this.password = password;
-        this.fullName = fullName;
-        this.address = address;
-        this.city = city;
-        this.listOrder = listOrder;
-    }
+//    @OneToMany (mappedBy = "customers")
+//    private List <Order> listOrder;
     
     
 }

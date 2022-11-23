@@ -24,7 +24,7 @@ public class CustomerForm extends javax.swing.JFrame {
         loadCustomerTable();
     }
     public void loadCustomerTable(){
-        List listCus = cusBLL.loadCategory();
+        List listCus = cusBLL.loadCustomer();
         Object[][] datamodel = cusBLL.convertList(listCus);
         String[] title = {"TT", "CustomerID", "Password", "Fullname","Address","City"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);

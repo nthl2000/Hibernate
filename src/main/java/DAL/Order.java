@@ -20,10 +20,9 @@ import org.hibernate.*;
  */
 @Data
 @Entity
-@Table (name = "Order")
+@Table (name = "order")
 public class Order {
     @Id
-    @GeneratedValue
     private int orderId;
     @Column
     private Date date;
@@ -34,6 +33,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customerID")
     private Customers customer;
-    @OneToMany (mappedBy = "order")
-    private List<OrderDetails> listOrderDetails;
+//    @OneToMany (mappedBy = "order")
+//    private List<OrderDetails> listOrderDetails;
 }

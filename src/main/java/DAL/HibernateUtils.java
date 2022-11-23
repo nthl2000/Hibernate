@@ -54,12 +54,12 @@ public class HibernateUtils {
             session.beginTransaction();
             List<Category> category = session.createQuery("FROM Category", Category.class).list();
             
-            //xem danh sách
-            category.forEach(System.out::println);
-            
-            //thêm mới
-            
-            session.getTransaction().commit();
+//            //xem danh sách
+//            category.forEach(System.out::println);
+//            
+//            //thêm mới
+//            
+//            session.getTransaction().commit();
                     
     }
 }}

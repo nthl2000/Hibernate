@@ -25,7 +25,7 @@ public class CustomerDAL {
     public List loadCustomer(){
         List<Customers> customer;
         session.beginTransaction();
-        customer = session.createQuery("FROM customers",Customers.class).list();
+        customer = session.createQuery("FROM Customers",Customers.class).list();
         session.getTransaction().commit();
         return customer;
     }

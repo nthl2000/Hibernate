@@ -20,7 +20,7 @@ public class CustomerBLL {
     }
     public Object[][] convertList(List<Customers> list){
         int rows =list.size();
-        int cols = 5;
+        int cols = 6;
         Object[][] obj = new Object[rows][cols];
         for(int i=0;i<rows;i++){
             obj[i][0] = i+1;
@@ -32,7 +32,7 @@ public class CustomerBLL {
         }
         return obj;
 }
-    public List loadCategory() {
+    public List loadCustomer() {
         List list;
         list = cusDAL.loadCustomer();
         return list;
