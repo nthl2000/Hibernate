@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import BLL.OrderBLL;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
@@ -14,9 +18,20 @@ public class OrderForm extends javax.swing.JFrame {
     /**
      * Creates new form OrderForm
      */
+    private OrderBLL orderBLL;
     public OrderForm() {
         initComponents();
+        orderBLL = new OrderBLL();
+        loadOrderTable();
     }
+    public void loadOrderTable(){
+        List listOrder = orderBLL.loadOrder();
+        Object[][] datamodel = orderBLL.convertOrderList(listOrder);
+        String[] title = {"TT", "OrderId", "CustomerId", "Date","Total","Note"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
