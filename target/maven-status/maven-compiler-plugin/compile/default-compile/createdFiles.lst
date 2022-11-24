@@ -11,7 +11,9 @@ GUI\OrderDetails$1.class
 GUI\Order_Edit$3.class
 GUI\CategoryForm$4.class
 GUI\OrderForm.class
+GUI\CategoryForm$8.class
 GUI\OrderDetails_Add$3.class
+GUI\CustomerForm$5.class
 GUI\Customer_Edit$1.class
 DAL\Order.class
 GUI\Vegetable_Add$3.class
@@ -23,6 +25,7 @@ DAL\OrderDAL.class
 DAL\CategoryDAL.class
 GUI\OrderDetails.class
 GUI\Category_Add.class
+GUI\CustomerForm$6.class
 GUI\CategoryForm$3.class
 GUI\Vegetable_Add$4.class
 GUI\OrderForm$3.class
@@ -69,12 +72,14 @@ GUI\VegetableForm.class
 BLL\OrderBLL.class
 DAL\OrderDetailsDAL.class
 GUI\Order_Add.class
+GUI\CustomerForm$4.class
 GUI\Customer_Edit$2.class
 GUI\OrderDetails_Add.class
 GUI\Order_Add$3.class
 GUI\CategoryForm$1.class
 GUI\Category_Edit.class
 GUI\Vegetable_Add$2.class
+GUI\CustomerForm$7.class
 GUI\Order_Edit.class
 BLL\OrderDetailsBLL.class
 BLL\CustomerBLL.class

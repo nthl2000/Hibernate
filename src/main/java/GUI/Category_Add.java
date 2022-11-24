@@ -43,7 +43,7 @@ public class Category_Add extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add");
 
         lbName.setText("Name");
@@ -125,7 +125,23 @@ public class Category_Add extends javax.swing.JFrame {
         Category c = new Category();
         c.setName(txtName.getText());
         c.setDescription(txtDescription.getText());
-        std.addCategory(c);
+        
+        if (std.addCategory(c) == true){
+            JOptionPane.showMessageDialog(rootPane, "Insert successfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+            
+            txtName.setText(""); // clear text sau khi thêm
+            txtDescription.setText("");  // clear text sau khi thêm
+            txtName.requestFocus(); //focus field name sau khi thêm
+        }else{
+             JOptionPane.showMessageDialog(rootPane, "Insert failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+        }
+       
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked

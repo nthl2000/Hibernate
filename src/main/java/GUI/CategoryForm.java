@@ -7,7 +7,9 @@ package GUI;
 
 import BLL.CategoryBLL;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -18,18 +20,18 @@ public class CategoryForm extends javax.swing.JFrame {
     /**
      * Creates new form CategoryForm
      */
-    private CategoryBLL cateBLL;
+    private CategoryBLL std;
 
     public CategoryForm() {
         initComponents();
-        cateBLL = new CategoryBLL();
+        std = new CategoryBLL();
         loadCategoryTable();
     }
 
     public void loadCategoryTable() {
-        List listCate = cateBLL.loadCategory();
-        Object[][] datamodel = cateBLL.convertList(listCate);
-        String[] title = {"TT", "Name", "Description", "Count of Vegetable"};
+        List listCate = std.loadCategory();
+        Object[][] datamodel = std.convertCategoryList(listCate);
+        String[] title = {"TT","CategoryId" ,"Name", "Description", "Count of Vegetable"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
     }
@@ -66,6 +68,11 @@ public class CategoryForm extends javax.swing.JFrame {
         });
 
         btnFind.setText("Find");
+        btnFind.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFindMouseClicked(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,9 +111,9 @@ public class CategoryForm extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("UPDATE");
-        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUpdateMouseClicked(evt);
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -121,6 +128,11 @@ public class CategoryForm extends javax.swing.JFrame {
         btnReload.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReloadMouseClicked(evt);
+            }
+        });
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
             }
         });
 
@@ -188,12 +200,6 @@ public class CategoryForm extends javax.swing.JFrame {
         cateAdd.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
-        // TODO add your handling code here:
-        Category_Edit cateEdit = new Category_Edit();
-        cateEdit.setVisible(true);
-    }//GEN-LAST:event_btnUpdateMouseClicked
-
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteMouseClicked
@@ -202,6 +208,41 @@ public class CategoryForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         loadCategoryTable();
     }//GEN-LAST:event_btnReloadMouseClicked
+
+    private void btnFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMouseClicked
+        // TODO add your handling code here:
+        String toFind = txtFind.getText();
+        if(toFind.isEmpty()== false){
+            List list = std.findCategories(toFind);
+            Object[][] datamodel = std.convertCategoryList(list);
+        String[] title = {"TT","CategoryId" ,"Name", "Description", "Count of Vegetable"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+        }
+    }//GEN-LAST:event_btnFindMouseClicked
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        loadCategoryTable();
+    }//GEN-LAST:event_btnReloadActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        
+        System.out.println("row selected: " + row);
+        if (row != -1 ){
+            int categoryId = Integer.parseInt(model.getValueAt(row,1).toString());
+            System.out.println(categoryId);
+       
+            Category_Edit cateEdit = new Category_Edit(categoryId);
+            cateEdit.setVisible(true);
+            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+        
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,4 +292,6 @@ public class CategoryForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbHeader;
     private javax.swing.JTextField txtFind;
     // End of variables declaration//GEN-END:variables
+
+
 }

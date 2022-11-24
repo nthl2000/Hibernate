@@ -32,4 +32,15 @@ public class Category {
     @OneToMany (mappedBy = "catagory")
     private List<Vegetable> listVegetable;
 
+    public Category(){
+        
+    }
+    public Category(int CatagoryID, String Name, String Description) {
+        this.CatagoryID = CatagoryID;
+        this.Name = Name;
+        this.Description = Description;
+        this.listVegetable = listVegetable;
+    }
+    
+    
 }

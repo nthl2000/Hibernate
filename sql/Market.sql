@@ -192,21 +192,21 @@ ALTER TABLE `Vegetable`
 --
 -- Constraints for table `Category`
 --
-ALTER TABLE `Category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`CatagoryID`) REFERENCES `Vegetable` (`CatagoryID`) ON DELETE CASCADE ON UPDATE CASCADE;
+--ALTER TABLE `Category`
+ -- ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`CatagoryID`) REFERENCES `Vegetable` (`CatagoryID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Order`
 --
-ALTER TABLE `Order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `Customers` (`CustomerID`) ON DELETE CASCADE ON UPDATE CASCADE;
+--ALTER TABLE `Order`
+  --ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `Customers` (`CustomerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `OrderDetail`
 --
-ALTER TABLE `OrderDetail`
-  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`VegetableID`) REFERENCES `Vegetable` (`VegetableID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE;
+--ALTER TABLE `OrderDetail`
+  --ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`VegetableID`) REFERENCES `Vegetable` (`VegetableID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  --ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
