@@ -15,7 +15,7 @@ import org.hibernate.query.Query;
  */
 public class CategoryDAL {
 
-    Session session;
+    final Session session;
 
     public CategoryDAL() {
         session = HibernateUtils.getSessionFactory().openSession();
@@ -24,10 +24,17 @@ public class CategoryDAL {
     //load page
     public List loadCategory() {
         List<Category> category;
+        
         session.beginTransaction();
         category = session.createQuery("FROM Category", Category.class).list();
         session.getTransaction().commit();
+
+        
         return category;
+
+        
+   
+        
     }
     //get selected row
 
@@ -35,17 +42,27 @@ public class CategoryDAL {
         session.beginTransaction();
         Category obj = session.get(Category.class, categoryId);
         session.getTransaction().commit();
+        
+   
         return obj;
     }
 
     //Find
     public List findCategories(String toFind) {
-        String hql = "Select * from Category where CatagoryID LIKE :toFind or Name LIKE :toFind";
-        Query query = session.createQuery(hql);
-        query.setParameter("toFind", toFind);
-        List results = query.list();
+        List<Category> category;
+         
+        session.beginTransaction();
+        
+        String hql = "FROM Category where CatagoryID LIKE '%"+ toFind +"%' OR Name LIKE '%"+ toFind +"%'  ";
+        
+        System.out.println("hql: " + hql);
+        category = session.createQuery(hql)
+        .list();
+        
         session.getTransaction().commit();
-        return results;
+        
+        
+        return category;
     }
 
     public boolean addCategory(Category c) {
@@ -55,8 +72,10 @@ public class CategoryDAL {
             session.save(c);
             session.getTransaction().commit();
 
-            return true;
-        } catch (RuntimeException re) {
+            
+            return true;   
+        }  catch (RuntimeException re) {
+
             return false;
         }
 
@@ -69,18 +88,25 @@ public class CategoryDAL {
             session.saveOrUpdate(c);
             session.getTransaction().commit();
 
+            
             return true;
         } catch (RuntimeException re) {
+
             return false;
         }
     }
 
-    public int deleteCategory(int categoryId) {
-        String hql = "DELETE FROM CATEGORY WHERE CatagoryID = :id";
-        Query query = session.createQuery(hql);
-        query.setParameter("id", categoryId);
-        int result = query.executeUpdate();
-        System.out.println("Rows affected:" + result);
-        return result;
+    public boolean deleteCategory(Category c) {
+        try {
+            session.beginTransaction();
+            session.delete(c);
+            session.getTransaction().commit();
+
+           
+            return true;
+        } catch (RuntimeException re) {
+
+            return false;
+        }
     }
 }

@@ -129,9 +129,7 @@ public class Category_Add extends javax.swing.JFrame {
         if (std.addCategory(c) == true){
             JOptionPane.showMessageDialog(rootPane, "Insert successfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
             
-            txtName.setText(""); // clear text sau khi thêm
-            txtDescription.setText("");  // clear text sau khi thêm
-            txtName.requestFocus(); //focus field name sau khi thêm
+           this.setVisible(false);
         }else{
              JOptionPane.showMessageDialog(rootPane, "Insert failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
         }

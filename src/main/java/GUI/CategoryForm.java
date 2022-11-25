@@ -6,6 +6,7 @@
 package GUI;
 
 import BLL.CategoryBLL;
+import DAL.Category;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,18 +21,22 @@ public class CategoryForm extends javax.swing.JFrame {
     /**
      * Creates new form CategoryForm
      */
-    private CategoryBLL std;
+    CategoryBLL std;
 
     public CategoryForm() {
         initComponents();
-        std = new CategoryBLL();
+
         loadCategoryTable();
     }
 
     public void loadCategoryTable() {
+        jTable1.removeAll();
+        
+        std = new CategoryBLL();
+
         List listCate = std.loadCategory();
         Object[][] datamodel = std.convertCategoryList(listCate);
-        String[] title = {"TT","CategoryId" ,"Name", "Description", "Count of Vegetable"};
+        String[] title = {"TT", "CategoryId", "Name", "Description", "Count of Vegetable"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
     }
@@ -58,6 +63,7 @@ public class CategoryForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Category");
+        setResizable(false);
 
         lbFind.setText("Search");
 
@@ -68,9 +74,9 @@ public class CategoryForm extends javax.swing.JFrame {
         });
 
         btnFind.setText("Find");
-        btnFind.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFindMouseClicked(evt);
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
             }
         });
 
@@ -118,18 +124,13 @@ public class CategoryForm extends javax.swing.JFrame {
         });
 
         btnDelete.setText("DELETE");
-        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteMouseClicked(evt);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
         btnReload.setText("RELOAD");
-        btnReload.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReloadMouseClicked(evt);
-            }
-        });
         btnReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReloadActionPerformed(evt);
@@ -200,27 +201,6 @@ public class CategoryForm extends javax.swing.JFrame {
         cateAdd.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteMouseClicked
-
-    private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
-        // TODO add your handling code here:
-        loadCategoryTable();
-    }//GEN-LAST:event_btnReloadMouseClicked
-
-    private void btnFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMouseClicked
-        // TODO add your handling code here:
-        String toFind = txtFind.getText();
-        if(toFind.isEmpty()== false){
-            List list = std.findCategories(toFind);
-            Object[][] datamodel = std.convertCategoryList(list);
-        String[] title = {"TT","CategoryId" ,"Name", "Description", "Count of Vegetable"};
-        DefaultTableModel model = new DefaultTableModel(datamodel, title);
-        jTable1.setModel(model);
-        }
-    }//GEN-LAST:event_btnFindMouseClicked
-
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         loadCategoryTable();
     }//GEN-LAST:event_btnReloadActionPerformed
@@ -228,21 +208,78 @@ public class CategoryForm extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         int row = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
-        
+
         System.out.println("row selected: " + row);
-        if (row != -1 ){
-            int categoryId = Integer.parseInt(model.getValueAt(row,1).toString());
+        if (row != -1) {
+            int categoryId = Integer.parseInt(model.getValueAt(row, 1).toString());
             System.out.println(categoryId);
-       
+
             Category_Edit cateEdit = new Category_Edit(categoryId);
             cateEdit.setVisible(true);
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
         }
-        
-        
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+            
+            int inputConfirm = JOptionPane.showConfirmDialog(rootPane, "Delete confirm?", "Message", JOptionPane.YES_NO_OPTION);
+            
+            if (inputConfirm == 0){
+                int categoryId = Integer.parseInt(model.getValueAt(row, 1).toString());
+                System.out.println(categoryId);
+
+                std = new CategoryBLL();
+                Category objCategory = new Category();
+
+                objCategory.setCatagoryID(categoryId);
+
+                if (std.deleteCategory(objCategory) == true){
+                    JOptionPane.showMessageDialog(rootPane, "Delete succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+               
+                    loadCategoryTable();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Delete failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+                }
+            }
+            
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void findCategory(){
+        
+        String inputFind;
+        
+        inputFind = txtFind.getText(); //get string find
+        
+        std = new CategoryBLL();
+
+        jTable1.removeAll();
+        
+        List listCate = std.findCategories(inputFind);
+        Object[][] datamodel = std.convertCategoryList(listCate);
+        String[] title = {"TT", "CategoryId", "Name", "Description", "Count of Vegetable"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+        
+        
+        
+    }
+    
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        findCategory();
+    }//GEN-LAST:event_btnFindActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +329,5 @@ public class CategoryForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbHeader;
     private javax.swing.JTextField txtFind;
     // End of variables declaration//GEN-END:variables
-
 
 }

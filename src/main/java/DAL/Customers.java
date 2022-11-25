@@ -32,8 +32,8 @@ public class Customers {
     private String address;
     @Column
     private String city;
-//    @OneToMany (mappedBy = "customers")
-//    private List <Order> listOrder;
+    @OneToMany (mappedBy = "customers")
+    private List <Order> listOrder;
     
     
 }

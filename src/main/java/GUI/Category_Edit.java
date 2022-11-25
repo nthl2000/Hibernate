@@ -18,29 +18,14 @@ public class Category_Edit extends javax.swing.JFrame {
     /**
      * Creates new form Category_Edit
      */
-    CategoryBLL std;
-    Category c;
-
-    public void UpdateCategory() {
-
-        Category c = new Category();
-
-        c.setCatagoryID(Integer.parseInt(txtCategoryID.getText())); //truyền ID để update
-        c.setName(txtName.getText());
-        c.setDescription(txtDescription.getText());
-
-        if (std.updateCategory(c) == true) {
-            JOptionPane.showMessageDialog(rootPane, "Update succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Update failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
-        }
-
-    }
+   
 
     public Category_Edit(int categoryId) {
         initComponents();
+        
+        CategoryBLL std = new CategoryBLL();
+      
 
-        std = new CategoryBLL();
         Category c = std.loadCategory(categoryId);
 
         txtCategoryID.setText(Integer.toString(c.getCatagoryID()));
@@ -175,6 +160,26 @@ public class Category_Edit extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCloseActionPerformed
 
+    
+    
+    public void UpdateCategory() {
+        CategoryBLL std = new CategoryBLL();
+      
+        Category c = new Category();
+
+        c.setCatagoryID(Integer.parseInt(txtCategoryID.getText())); //truyền ID để update
+        c.setName(txtName.getText());
+        c.setDescription(txtDescription.getText());
+
+        if (std.updateCategory(c) == true) {
+            JOptionPane.showMessageDialog(rootPane, "Update succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Update failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+        }
+
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

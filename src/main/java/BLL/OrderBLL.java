@@ -24,7 +24,7 @@ public class OrderBLL {
         Object[][] obj = new Object[rows][cols];
         for(int i=0;i<rows;i++){
             obj[i][0] = list.get(i).getOrderId();
-            obj[i][1] = list.get(i).getCustomer();
+            obj[i][1] = list.get(i).getCustomer().getCustomerId();
             obj[i][2] = list.get(i).getDate();
             obj[i][3] = list.get(i).getTotal();
             obj[i][4] = list.get(i).getNote();

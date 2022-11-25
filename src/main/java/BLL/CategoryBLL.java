@@ -81,8 +81,8 @@ public class CategoryBLL {
          
      }
      //Delete
-     public int deleteCategory(int CategoryId) {
-         return stdDal.deleteCategory(CategoryId);
+     public boolean deleteCategory(Category c) {
+         return stdDal.deleteCategory(c);
      }
     
     

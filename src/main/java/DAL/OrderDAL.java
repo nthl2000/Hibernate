@@ -19,8 +19,11 @@ public class OrderDAL {
     public List loadOrder() {
         List<Order> order;
         session.beginTransaction();
-        order = session.createQuery("FROM Order",Order.class).list();
+       
+        order = session.createQuery("FROM Order", Order.class).list();
+        
         session.getTransaction().commit();
+        
         return order;
     }
     public Order getOrder(int orderId){

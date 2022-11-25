@@ -11,7 +11,7 @@
             This class contains the customers detail. 
         </meta>
       
-        <id name = "customerID" type = "int" column = "CustomerID">
+        <id name = "customerId" type = "int" column = "CustomerID">
             <generator class="native"/>
         </id>
       
