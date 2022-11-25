@@ -70,7 +70,7 @@ public class CustomerBLL {
     }
 //    Find
 
-    public List findCategories(String toFind) {
+    public List findCustomers(String toFind) {
         List list = new ArrayList();
         list = stdDAL.findCustomers(toFind);
         return list;
@@ -79,7 +79,6 @@ public class CustomerBLL {
     //Update
     public boolean updateCustomers(Customers c) {
         return stdDAL.updateCustomer(c);
-
     }
     //Delete
 

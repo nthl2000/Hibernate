@@ -42,7 +42,7 @@ public class Customer_Add extends javax.swing.JFrame {
 
         jLabel5.setText("jLabel5");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

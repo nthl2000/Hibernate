@@ -20,41 +20,33 @@ public class Category_Edit extends javax.swing.JFrame {
      */
     CategoryBLL std;
     Category c;
- 
-   
-    
-    public void UpdateCategory(){
-        
-       Category c = new Category();
-       
-       c.setCatagoryID(Integer.parseInt(txtCategoryID.getText())); //truyền ID để update
-       c.setName(txtName.getText());
-       c.setDescription(txtDescription.getText());
-        
-       if (std.updateCategory(c) == true){
-           JOptionPane.showMessageDialog(rootPane, "Update succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
-       }else{
-           JOptionPane.showMessageDialog(rootPane, "Update failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
-       }
-      
-       
-        
+
+    public void UpdateCategory() {
+
+        Category c = new Category();
+
+        c.setCatagoryID(Integer.parseInt(txtCategoryID.getText())); //truyền ID để update
+        c.setName(txtName.getText());
+        c.setDescription(txtDescription.getText());
+
+        if (std.updateCategory(c) == true) {
+            JOptionPane.showMessageDialog(rootPane, "Update succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Update failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+        }
+
     }
-    
-    
+
     public Category_Edit(int categoryId) {
         initComponents();
-        
+
         std = new CategoryBLL();
         Category c = std.loadCategory(categoryId);
-       
-       
-        txtCategoryID.setText( Integer.toString(c.getCatagoryID()));
+
+        txtCategoryID.setText(Integer.toString(c.getCatagoryID()));
         txtName.setText(c.getName());
         txtDescription.setText(c.getDescription());
-        
-       
-        
+
     }
 
     /**
@@ -97,6 +89,11 @@ public class Category_Edit extends javax.swing.JFrame {
         });
 
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         lbName.setText("Name");
 
@@ -167,12 +164,16 @@ public class Category_Edit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+
         UpdateCategory();
-        
-        
-        
+
+
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments

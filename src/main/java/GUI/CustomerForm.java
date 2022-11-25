@@ -8,7 +8,10 @@ package GUI;
 import BLL.CustomerBLL;
 import DAL.CategoryDAL;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Admin
@@ -18,16 +21,18 @@ public class CustomerForm extends javax.swing.JFrame {
     /**
      * Creates new form CustomerForm
      */
-    private CustomerBLL cusBLL;
+    private CustomerBLL std;
+
     public CustomerForm() {
         initComponents();
-        cusBLL = new CustomerBLL();
+        std = new CustomerBLL();
         loadCustomerTable();
     }
-    public void loadCustomerTable(){
-        List listCus = cusBLL.loadCustomer();
-        Object[][] datamodel = cusBLL.convertList(listCus);
-        String[] title = {"TT", "CustomerID", "Password", "Fullname","Address","City"};
+
+    public void loadCustomerTable() {
+        List listCus = std.loadCustomer();
+        Object[][] datamodel = std.convertList(listCus);
+        String[] title = {"TT", "CustomerID", "Password", "Fullname", "Address", "City"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
     }
@@ -56,6 +61,11 @@ public class CustomerForm extends javax.swing.JFrame {
         setTitle("Customer");
 
         btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,25 +187,49 @@ public class CustomerForm extends javax.swing.JFrame {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
-        Category_Add cateAdd = new Category_Add();
-        cateAdd.setVisible(true);
+        Customer_Add cusAdd = new Customer_Add();
+        cusAdd.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
-//        Category_Edit cateEdit = new Category_Edit(int categoryId);
-//        cateEdit.setVisible(true);
+        int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        
+        System.out.println("row selected: " + row);
+        if (row != -1 ){
+            int customerId = Integer.parseInt(model.getValueAt(row,1).toString());
+            System.out.println(customerId);
+       
+            Customer_Edit cusEdit = new Customer_Edit(customerId);
+            cusEdit.setVisible(true);
+            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
     }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
+
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
         // TODO add your handling code here:
-//        CategoryDAL dal = new CategoryDAL();
-//        List list = dal.loadCustomer();
+        loadCustomerTable();
     }//GEN-LAST:event_btnReloadMouseClicked
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        // TODO add your handling code here:
+        String toFind = txtFind.getText();
+        if (toFind.isEmpty() == false) {
+            List list = std.findCustomers(toFind);
+            Object[][] datamodel = std.convertList(list);
+            String[] title = {"TT", "CustomerID", "Password", "Fullname", "Address", "City"};
+            DefaultTableModel model = new DefaultTableModel(datamodel, title);
+            jTable1.setModel(model);
+    }//GEN-LAST:event_btnFindActionPerformed
+    }
 
     /**
      * @param args the command line arguments
