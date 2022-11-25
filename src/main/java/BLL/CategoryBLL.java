@@ -30,7 +30,7 @@ public class CategoryBLL {
 
     public Category loadCategory(int categoryId) {
         Category c = new Category();
-        c = stdDal.findCategory(categoryId);
+        c = stdDal.getCategory(categoryId);
         return c;
     }
 
