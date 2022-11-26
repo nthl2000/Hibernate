@@ -29,7 +29,7 @@ public class Category {
     @Column 
     private String Description;
     
-    @OneToMany (mappedBy = "catagory")
+    @OneToMany (mappedBy = "CatagoryID")
     private List<Vegetable> listVegetable;
 
     public Category(){
