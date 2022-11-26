@@ -5,10 +5,13 @@
  */
 package GUI;
 
-import BLL.CategoryBLL;
 import BLL.VegetableBLL;
+import BLL.VegetableBLL;
+import DAL.Vegetable;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -19,20 +22,37 @@ public class VegetableForm extends javax.swing.JFrame {
     /**
      * Creates new form VegetableForm
      */
-    VegetableBLL vegBLL = new VegetableBLL();
-    CategoryBLL cateBLL = new CategoryBLL();
+    VegetableBLL std = new VegetableBLL();
+    VegetableBLL cateBLL = new VegetableBLL();
     int page=1;
     public VegetableForm() {
         initComponents();
-        
+        std = new VegetableBLL();
     }
-//    public void loadVegetable(int cateId){
-//        List listVeg = cateBLL.getCategory(cateId).getListVegetable();
-//        Object[][] data = vegBLL.convertVegetable(listVeg);
-//        String[] title ={"VegId","Name","Unit","Amount","Images","Price"};
-//        DefaultTableModel model = new DefaultTableModel(data, title);
-//        jTable1.setModel(model);
-//    }
+    public void loadVegetableTable(){
+         jTable1.removeAll();
+         std = new VegetableBLL();
+         List listVeg = std.loadVegetable();
+         Object[][] datamodel = std.convertVegetable(listVeg);
+         String[] title = {"TT", "VegetableId", "CatagoryId", "VegetableName", "Unit", "Amount", "Image", "Price"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+    }
+    private void findVegetable(){
+        String inputFind;
+
+        inputFind = txtFind.getText(); //get string find
+
+        std = new VegetableBLL();
+
+        jTable1.removeAll();
+
+        List listCate = std.findVegetables(inputFind);
+        Object[][] datamodel = std.convertVegetable(listCate);
+        String[] title = {"TT", "VegetableId", "CatagoryId", "VegetableName", "Unit", "Amount", "Image", "Price"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,9 +69,9 @@ public class VegetableForm extends javax.swing.JFrame {
         btnFind = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vegetable");
@@ -79,29 +99,43 @@ public class VegetableForm extends javax.swing.JFrame {
 
         lbFind.setText("Search");
 
-        txtFind.addActionListener(new java.awt.event.ActionListener() {
+        btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindActionPerformed(evt);
+                btnFindActionPerformed(evt);
             }
         });
-
-        btnFind.setText("Find");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("VEGETABLE FORM");
 
         btnAdd.setText("ADD");
-
-        jButton2.setText("EDIT");
-
-        jButton3.setText("DELETE");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        jButton4.setText("RELOAD");
+        btnUpdate.setText("EDIT");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnReload.setText("RELOAD");
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,15 +162,15 @@ public class VegetableForm extends javax.swing.JFrame {
                         .addGap(235, 235, 235)
                         .addComponent(btnAdd)
                         .addGap(60, 60, 60)
-                        .addComponent(jButton2)
+                        .addComponent(btnUpdate)
                         .addGap(60, 60, 60)
-                        .addComponent(jButton3)
+                        .addComponent(btnDelete)
                         .addGap(60, 60, 60)
-                        .addComponent(jButton4)))
+                        .addComponent(btnReload)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnDelete, btnReload, btnUpdate});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,24 +187,83 @@ public class VegetableForm extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnReload))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnDelete, btnReload, btnUpdate});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindActionPerformed
+          int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+
+            int inputConfirm = JOptionPane.showConfirmDialog(rootPane, "Delete confirm?", "Message", JOptionPane.YES_NO_OPTION);
+
+            if (inputConfirm == 0) {
+                int vegetableId = Integer.parseInt(model.getValueAt(row, 1).toString());
+                System.out.println(vegetableId);
+
+                std = new VegetableBLL();
+                Vegetable objVegetable = new Vegetable();
+
+                objVegetable.setVegetableId(vegetableId);
+
+                if (std.deleteVegetable(objVegetable) == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Delete succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+
+                    loadVegetableTable();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Delete failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        findVegetable();
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        Vegetable_Add vegAdd = new Vegetable_Add();
+        vegAdd.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+         int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+            int vegetableId = Integer.parseInt(model.getValueAt(row, 1).toString());
+            System.out.println(vegetableId);
+
+            Vegetable_Edit cateEdit = new Vegetable_Edit(vegetableId);
+            cateEdit.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        // TODO add your handling code here:.
+        loadVegetableTable();
+    }//GEN-LAST:event_btnReloadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,10 +302,10 @@ public class VegetableForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnFind;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

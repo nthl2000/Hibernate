@@ -23,16 +23,19 @@ import org.hibernate.*;
 @Table (name = "orderdetail")
 public class OrderDetails implements Serializable{
     @Id
-    private int orderId;
-    private int vegetableId;
-    @Column 
+    @ManyToOne
+    @JoinColumn(name = "OrderID")
+    private Order orderId;
+    
+    @Id
+    @ManyToOne
+    @JoinColumn (name = "VegetableID")
+    private Vegetable vegetableId;
+    
+     @Column 
     private int quantity;
     @Column 
     private double price;
-    @ManyToOne
-    @JoinColumn(name = "OrderID")
-    private Order order;
-    @ManyToOne
-    @JoinColumn (name = "VegetableID")
-    private Vegetable vegetable;
+   
+    
 }

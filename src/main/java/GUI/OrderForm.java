@@ -6,8 +6,11 @@
 package GUI;
 
 import BLL.OrderBLL;
+import DAL.Order;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -18,20 +21,37 @@ public class OrderForm extends javax.swing.JFrame {
     /**
      * Creates new form OrderForm
      */
-    private OrderBLL orderBLL;
+    private OrderBLL std;
     public OrderForm() {
         initComponents();
-        orderBLL = new OrderBLL();
         loadOrderTable();
     }
     public void loadOrderTable(){
-        List listOrder = orderBLL.loadOrder();
-        Object[][] datamodel = orderBLL.convertOrderList(listOrder);
+        jTable1.removeAll();
+        std = new OrderBLL();
+        List listOrder = std.loadOrder();
+        Object[][] datamodel = std.convertOrderList(listOrder);
         String[] title = {"TT", "OrderId", "CustomerId", "Date","Total","Note"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
     }
-    
+    private void findOrder() {
+
+        String inputFind;
+
+        inputFind = txtFind.getText(); //get string find
+
+        std = new OrderBLL();
+
+        jTable1.removeAll();
+
+        List listCate = std.findOrders(inputFind);
+        Object[][] datamodel = std.convertOrderList(listCate);
+        String[] title = {"TT", "OrderId", "CustomerId", "Date","Total","Note"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,15 +68,20 @@ public class OrderForm extends javax.swing.JFrame {
         lbFind = new javax.swing.JLabel();
         txtFind = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnReload = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Order");
 
         btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,27 +113,36 @@ public class OrderForm extends javax.swing.JFrame {
 
         lbFind.setText("Search");
 
-        txtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("ORDER FORM");
 
-        jButton2.setText("EDIT");
-
-        jButton3.setText("DELETE");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("EDIT");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        jButton4.setText("RELOAD");
+        btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnReload.setText("RELOAD");
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,15 +168,15 @@ public class OrderForm extends javax.swing.JFrame {
                 .addGap(180, 180, 180)
                 .addComponent(btnAdd)
                 .addGap(60, 60, 60)
-                .addComponent(jButton2)
+                .addComponent(btnUpdate)
                 .addGap(60, 60, 60)
-                .addComponent(jButton3)
+                .addComponent(btnDelete)
                 .addGap(60, 60, 60)
-                .addComponent(jButton4)
+                .addComponent(btnReload)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnDelete, btnReload, btnUpdate});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,24 +193,83 @@ public class OrderForm extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnReload))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnDelete, btnReload, btnUpdate});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindActionPerformed
+        int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+
+            int inputConfirm = JOptionPane.showConfirmDialog(rootPane, "Delete confirm?", "Message", JOptionPane.YES_NO_OPTION);
+
+            if (inputConfirm == 0) {
+                int orderId = Integer.parseInt(model.getValueAt(row, 1).toString());
+                System.out.println(orderId);
+
+                std = new OrderBLL();
+                Order objOrder = new Order();
+
+                objOrder.setOrderId(orderId);
+
+                if (std.deleteOrder(objOrder) == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Delete succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+
+                    loadOrderTable();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Delete failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        findOrder();
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        Order_Add orderAdd = new Order_Add();
+        orderAdd.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+         int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+            int orderId = Integer.parseInt(model.getValueAt(row, 1).toString());
+            System.out.println(orderId);
+
+            Order_Edit orderEdit = new Order_Edit(orderId);
+            orderEdit.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        // TODO add your handling code here:
+        loadOrderTable();
+    }//GEN-LAST:event_btnReloadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,10 +308,10 @@ public class OrderForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnFind;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

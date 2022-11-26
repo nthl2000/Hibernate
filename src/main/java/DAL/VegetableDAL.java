@@ -21,21 +21,75 @@ public class VegetableDAL {
         session = HibernateUtils.getSessionFactory().openSession();
     }
 
-    public Vegetable getVegetable(int vegetableId) {
-        Vegetable obj;
+    //load page
+    public List loadVegetable(){
+        List<Vegetable> vegetable;
         session.beginTransaction();
-        obj = session.get(Vegetable.class, vegetableId);
+        vegetable = session.createQuery("FROM Vegetable", Vegetable.class).list();
+        session.getTransaction().commit();
+        return vegetable;
+    }
+    //get selected row
+    public Vegetable getVegetable(int vegetableId) {
+        session.beginTransaction();
+        Vegetable obj = session.get(Vegetable.class, vegetableId);
         session.getTransaction().commit();
         return obj;
     }
-
-    public List getVegetableInCategory(int categoryId) {
-        List list;
+    //Find
+    public List findVegetable(String toFind) {
+        List<Vegetable> vegetable;
+        
         session.beginTransaction();
-        Query q = session.createQuery("From Vegetable WHERE CatagoryID= :categoryID");
-        q.setParameter("categoryID", categoryId);
-        list = q.list();
+        String hql = "FROM Vegetable where VegetableID LIKE '%" + toFind + "%' OR VegetableName LIKE '%" + toFind + "%'  ";
+
+        System.out.println("hql: " + hql);
+        vegetable = session.createQuery(hql)
+                .list();
+
         session.getTransaction().commit();
-        return list;
+        return vegetable;
+    }
+    
+    //Add
+    public boolean addVegetable(Vegetable v){
+try {
+            session.beginTransaction();
+            session.save(v);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (RuntimeException re) {
+
+            return false;
+        }
+
+    }
+
+    public boolean updateVegetable(Vegetable v) {
+
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(v);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (RuntimeException re) {
+
+            return false;
+        }
+    }
+
+    public boolean deleteVegetable(Vegetable v) {
+        try {
+            session.beginTransaction();
+            session.delete(v);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (RuntimeException re) {
+
+            return false;
+        }
     }
 }

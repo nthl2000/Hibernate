@@ -7,6 +7,7 @@ D:\App\Git\Project\Hibernate\src\main\java\DAL\CustomerDAL.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\CustomerForm.java
 D:\App\Git\Project\Hibernate\src\main\java\DAL\CategoryDAL.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\Category_Add.java
+D:\App\Git\Project\Hibernate\src\main\java\GUI\OrderDetails_Form.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\Customer_Add.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\VegetableForm.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\Order_Edit.java
@@ -23,10 +24,8 @@ D:\App\Git\Project\Hibernate\src\main\java\DAL\OrderDetails_Id.java
 D:\App\Git\Project\Hibernate\src\main\java\BLL\OrderBLL.java
 D:\App\Git\Project\Hibernate\src\main\java\BLL\CustomerBLL.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\Vegetable_Add.java
-D:\App\Git\Project\Hibernate\src\main\java\GUI\OrderDetails_Edit.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\OrderForm.java
 D:\App\Git\Project\Hibernate\src\main\java\DAL\HibernateUtils.java
 D:\App\Git\Project\Hibernate\src\main\java\GUI\Category_Edit.java
-D:\App\Git\Project\Hibernate\src\main\java\GUI\OrderDetails.java
 D:\App\Git\Project\Hibernate\src\main\java\DAL\Order.java
 D:\App\Git\Project\Hibernate\src\main\java\DAL\OrderDetailsDAL.java

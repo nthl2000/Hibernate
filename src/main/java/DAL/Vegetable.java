@@ -37,7 +37,7 @@ public class Vegetable {
     
     @ManyToOne
     @JoinColumn(name = "CatagoryID")
-    private Category catagory;
-    @OneToMany (mappedBy = "vegetable")
+    private Category CatagoryID;
+    @OneToMany (mappedBy = "vegetableId")
     private List<OrderDetails> listOrderItem;
 }

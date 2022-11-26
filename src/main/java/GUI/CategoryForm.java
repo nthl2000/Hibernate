@@ -30,14 +30,29 @@ public class CategoryForm extends javax.swing.JFrame {
 
     public void loadCategoryTable() {
         jTable1.removeAll();
-        
         std = new CategoryBLL();
-
         List listCate = std.loadCategory();
         Object[][] datamodel = std.convertCategoryList(listCate);
         String[] title = {"TT", "CategoryId", "Name", "Description", "Count of Vegetable"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
+    }
+    private void findCategory() {
+
+        String inputFind;
+
+        inputFind = txtFind.getText(); //get string find
+
+        std = new CategoryBLL();
+
+        jTable1.removeAll();
+
+        List listCate = std.findCategories(inputFind);
+        Object[][] datamodel = std.convertCategoryList(listCate);
+        String[] title = {"TT", "CategoryId", "Name", "Description", "Count of Vegetable"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+
     }
 
     /**
@@ -65,12 +80,6 @@ public class CategoryForm extends javax.swing.JFrame {
         setResizable(false);
 
         lbFind.setText("Search");
-
-        txtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindActionPerformed(evt);
-            }
-        });
 
         btnFind.setText("Find");
         btnFind.addActionListener(new java.awt.event.ActionListener() {
@@ -190,10 +199,6 @@ public class CategoryForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindActionPerformed
-
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
         Category_Add cateAdd = new Category_Add();
@@ -226,13 +231,13 @@ public class CategoryForm extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int row = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
-        
+
         System.out.println("row selected: " + row);
         if (row != -1) {
-            
+
             int inputConfirm = JOptionPane.showConfirmDialog(rootPane, "Delete confirm?", "Message", JOptionPane.YES_NO_OPTION);
-            
-            if (inputConfirm == 0){
+
+            if (inputConfirm == 0) {
                 int categoryId = Integer.parseInt(model.getValueAt(row, 1).toString());
                 System.out.println(categoryId);
 
@@ -241,41 +246,22 @@ public class CategoryForm extends javax.swing.JFrame {
 
                 objCategory.setCatagoryID(categoryId);
 
-                if (std.deleteCategory(objCategory) == true){
+                if (std.deleteCategory(objCategory) == true) {
                     JOptionPane.showMessageDialog(rootPane, "Delete succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
-               
+
                     loadCategoryTable();
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(rootPane, "Delete failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
                 }
             }
-            
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void findCategory(){
-        
-        String inputFind;
-        
-        inputFind = txtFind.getText(); //get string find
-        
-        std = new CategoryBLL();
-
-        jTable1.removeAll();
-        
-        List listCate = std.findCategories(inputFind);
-        Object[][] datamodel = std.convertCategoryList(listCate);
-        String[] title = {"TT", "CategoryId", "Name", "Description", "Count of Vegetable"};
-        DefaultTableModel model = new DefaultTableModel(datamodel, title);
-        jTable1.setModel(model);
-        
-        
-        
-    }
     
+
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         findCategory();
     }//GEN-LAST:event_btnFindActionPerformed

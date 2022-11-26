@@ -32,8 +32,13 @@ public class Customers {
     private String address;
     @Column
     private String city;
-    @OneToMany (mappedBy = "customer")
+    @OneToMany (mappedBy = "customerId")
     private List <Order> listOrder;
     
-    
+    public int getCustomerID() {
+        return customerId;
+    }
+     public void setCustomerID(int customerId) {
+        this.customerId = customerId;
+    }
 }

@@ -54,7 +54,7 @@ public class CategoryDAL {
 
         return category;
     }
-
+    //Add
     public boolean addCategory(Category c) {
 
         try {
