@@ -64,8 +64,8 @@ public class CustomerBLL {
         return stdDAL.addCustomer(c);
     }
 
-    public Customers getCustomers(int categoryId) {
-        Customers c = stdDAL.getCustomer(categoryId);
+    public Customers getCustomers(int customerId) {
+        Customers c = stdDAL.getCustomer(customerId);
         return c;
     }
 //    Find
@@ -82,8 +82,8 @@ public class CustomerBLL {
     }
     //Delete
 
-    public int deleteCustomers(int CustomersId) {
-        return stdDAL.deleteCustomer(CustomersId);
+    public boolean deleteCustomers(Customers c) {
+        return stdDAL.deleteCustomer(c);
     }
 
 }

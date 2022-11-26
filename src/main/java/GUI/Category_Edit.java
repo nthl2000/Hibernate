@@ -18,13 +18,12 @@ public class Category_Edit extends javax.swing.JFrame {
     /**
      * Creates new form Category_Edit
      */
-   
-
+    CategoryBLL std;
+Category c;
     public Category_Edit(int categoryId) {
         initComponents();
-        
-        CategoryBLL std = new CategoryBLL();
-      
+
+        std = new CategoryBLL();
 
         Category c = std.loadCategory(categoryId);
 
@@ -160,12 +159,10 @@ public class Category_Edit extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCloseActionPerformed
 
-    
-    
     public void UpdateCategory() {
-        CategoryBLL std = new CategoryBLL();
-      
-        Category c = new Category();
+        std = new CategoryBLL();
+
+        c = new Category();
 
         c.setCatagoryID(Integer.parseInt(txtCategoryID.getText())); //truyền ID để update
         c.setName(txtName.getText());
@@ -178,8 +175,7 @@ public class Category_Edit extends javax.swing.JFrame {
         }
 
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

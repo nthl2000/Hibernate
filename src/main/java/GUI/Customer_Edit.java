@@ -32,7 +32,8 @@ public class Customer_Edit extends javax.swing.JFrame {
     }
     
     public void UpdateCustomer(){
-        Customers c = new Customers();
+        std = new CustomerBLL();
+        c = new Customers();
         c.setCustomerId(Integer.parseInt(txtCustomerId.getText()));
         c.setFullName(txtFullName.getText());
         c.setPassword(txtPass.getText());

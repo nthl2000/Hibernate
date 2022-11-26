@@ -14,7 +14,6 @@
         <id name = "vegetableId" type = "int" column = "VegetableID">
             <generator class="native"/>
         </id>
-        <property name = "categoryId" column = "CatagoryID" type = "int"/>
         <property name = "vegetableName" column = "VegetableName" type = "string"/>
         <property name = "unit" column = "Unit" type = "string"/>
         <property name = "amount" column = "Amount" type = "int"/>   

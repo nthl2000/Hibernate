@@ -26,13 +26,13 @@ public class VegetableForm extends javax.swing.JFrame {
         initComponents();
         
     }
-    public void loadVegetable(int cateId){
-        List listVeg = cateBLL.getCategory(cateId).getListVegetable();
-        Object[][] data = vegBLL.convertVegetable(listVeg);
-        String[] title ={"VegId","Name","Unit","Amount","Images","Price"};
-        DefaultTableModel model = new DefaultTableModel(data, title);
-        jTable1.setModel(model);
-    }
+//    public void loadVegetable(int cateId){
+//        List listVeg = cateBLL.getCategory(cateId).getListVegetable();
+//        Object[][] data = vegBLL.convertVegetable(listVeg);
+//        String[] title ={"VegId","Name","Unit","Amount","Images","Price"};
+//        DefaultTableModel model = new DefaultTableModel(data, title);
+//        jTable1.setModel(model);
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -14,7 +14,6 @@
         <id name = "orderId" type = "int" column = "OrderID">
             <generator class="native"/>
         </id>
-       
         <property name = "date" column = "Date" type = "string"/>
         <property name = "total" column = "Total" type = "double"/>
         <property name = "note" column = "Note" type = "string"/>      

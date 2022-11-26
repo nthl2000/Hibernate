@@ -11,7 +11,7 @@
             This class contains the orderdetails. 
         </meta>
       
-        <id name = "orderID" type = "int" column = "OrderID">
+        <id name = "orderId" type = "int" column = "OrderID">
             <generator class="native"/>
         </id>
         <id name = "vegetableId" type = "int" column = "VegetableID">

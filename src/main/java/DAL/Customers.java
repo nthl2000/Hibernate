@@ -32,7 +32,7 @@ public class Customers {
     private String address;
     @Column
     private String city;
-    @OneToMany (mappedBy = "customerId")
+    @OneToMany (mappedBy = "customer")
     private List <Order> listOrder;
     
     

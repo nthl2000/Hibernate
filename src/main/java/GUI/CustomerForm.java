@@ -7,6 +7,7 @@ package GUI;
 
 import BLL.CustomerBLL;
 import DAL.CategoryDAL;
+import DAL.Customers;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,16 +26,36 @@ public class CustomerForm extends javax.swing.JFrame {
 
     public CustomerForm() {
         initComponents();
-        std = new CustomerBLL();
         loadCustomerTable();
     }
 
     public void loadCustomerTable() {
+        jTable1.removeAll();
+        std = new CustomerBLL();
         List listCus = std.loadCustomer();
         Object[][] datamodel = std.convertList(listCus);
         String[] title = {"TT", "CustomerID", "Password", "Fullname", "Address", "City"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         jTable1.setModel(model);
+    }
+     private void findCustomers(){
+        
+        String inputFind;
+        
+        inputFind = txtFind.getText(); //get string find
+        
+        std = new CustomerBLL();
+
+        jTable1.removeAll();
+        
+        List listCus = std.findCustomers(inputFind);
+        Object[][] datamodel = std.convertList(listCus);
+        String[] title = {"TT", "CustomerID", "Password", "Fullname", "Address", "City"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        jTable1.setModel(model);
+        
+        
+        
     }
 
     /**
@@ -90,40 +111,34 @@ public class CustomerForm extends javax.swing.JFrame {
 
         lbFind.setText("Search");
 
-        txtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("CUSTOMER FORM");
 
         btnAdd.setText("ADD");
-        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddMouseClicked(evt);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
             }
         });
 
         btnUpdate.setText("UPDATE");
-        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUpdateMouseClicked(evt);
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
             }
         });
 
         btnDelete.setText("DELETE");
-        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteMouseClicked(evt);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
         btnReload.setText("RELOAD");
-        btnReload.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReloadMouseClicked(evt);
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
             }
         });
 
@@ -181,17 +196,18 @@ public class CustomerForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindActionPerformed
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindActionPerformed
+        findCustomers();
+    }//GEN-LAST:event_btnFindActionPerformed
 
-    private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         Customer_Add cusAdd = new Customer_Add();
         cusAdd.setVisible(true);
-    }//GEN-LAST:event_btnAddMouseClicked
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
@@ -207,29 +223,47 @@ public class CustomerForm extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
         }
-    }//GEN-LAST:event_btnUpdateMouseClicked
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+         int row = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        
+        System.out.println("row selected: " + row);
+        if (row != -1) {
+            
+            int inputConfirm = JOptionPane.showConfirmDialog(rootPane, "Delete confirm?", "Message", JOptionPane.YES_NO_OPTION);
+            
+            if (inputConfirm == 0){
+                int customerId = Integer.parseInt(model.getValueAt(row, 1).toString());
+                System.out.println(customerId);
 
-    }//GEN-LAST:event_btnDeleteMouseClicked
+                std = new CustomerBLL();
+                Customers objCustomer = new Customers();
 
-    private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
+                objCustomer.setCustomerId(customerId);
+
+                if (std.deleteCustomers(objCustomer) == true){
+                    JOptionPane.showMessageDialog(rootPane, "Delete succesfully", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+               
+                    loadCustomerTable();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Delete failed", "Message", JOptionPane.ERROR_MESSAGE); //thông báo
+                }
+            }
+            
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Select row first", "Message", JOptionPane.INFORMATION_MESSAGE); //thông báo
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         // TODO add your handling code here:
         loadCustomerTable();
-    }//GEN-LAST:event_btnReloadMouseClicked
-
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        // TODO add your handling code here:
-        String toFind = txtFind.getText();
-        if (toFind.isEmpty() == false) {
-            List list = std.findCustomers(toFind);
-            Object[][] datamodel = std.convertList(list);
-            String[] title = {"TT", "CustomerID", "Password", "Fullname", "Address", "City"};
-            DefaultTableModel model = new DefaultTableModel(datamodel, title);
-            jTable1.setModel(model);
-    }//GEN-LAST:event_btnFindActionPerformed
-    }
+    }//GEN-LAST:event_btnReloadActionPerformed
+    
 
     /**
      * @param args the command line arguments

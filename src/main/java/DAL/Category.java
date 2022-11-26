@@ -29,7 +29,7 @@ public class Category {
     @Column 
     private String Description;
     
-    @OneToMany (mappedBy = "CatagoryID")
+    @OneToMany (mappedBy = "catagory")
     private List<Vegetable> listVegetable;
 
     public Category(){
@@ -39,7 +39,7 @@ public class Category {
         this.CatagoryID = CatagoryID;
         this.Name = Name;
         this.Description = Description;
-        this.listVegetable = listVegetable;
+//        this.listVegetable = listVegetable;
     }
     
     

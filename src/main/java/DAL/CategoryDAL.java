@@ -24,17 +24,10 @@ public class CategoryDAL {
     //load page
     public List loadCategory() {
         List<Category> category;
-        
         session.beginTransaction();
         category = session.createQuery("FROM Category", Category.class).list();
         session.getTransaction().commit();
-
-        
         return category;
-
-        
-   
-        
     }
     //get selected row
 
@@ -42,26 +35,23 @@ public class CategoryDAL {
         session.beginTransaction();
         Category obj = session.get(Category.class, categoryId);
         session.getTransaction().commit();
-        
-   
         return obj;
     }
 
     //Find
     public List findCategories(String toFind) {
         List<Category> category;
-         
+
         session.beginTransaction();
-        
-        String hql = "FROM Category where CatagoryID LIKE '%"+ toFind +"%' OR Name LIKE '%"+ toFind +"%'  ";
-        
+
+        String hql = "FROM Category where CatagoryID LIKE '%" + toFind + "%' OR Name LIKE '%" + toFind + "%'  ";
+
         System.out.println("hql: " + hql);
         category = session.createQuery(hql)
-        .list();
-        
+                .list();
+
         session.getTransaction().commit();
-        
-        
+
         return category;
     }
 
@@ -72,9 +62,8 @@ public class CategoryDAL {
             session.save(c);
             session.getTransaction().commit();
 
-            
-            return true;   
-        }  catch (RuntimeException re) {
+            return true;
+        } catch (RuntimeException re) {
 
             return false;
         }
@@ -88,7 +77,6 @@ public class CategoryDAL {
             session.saveOrUpdate(c);
             session.getTransaction().commit();
 
-            
             return true;
         } catch (RuntimeException re) {
 
@@ -102,7 +90,6 @@ public class CategoryDAL {
             session.delete(c);
             session.getTransaction().commit();
 
-           
             return true;
         } catch (RuntimeException re) {
 

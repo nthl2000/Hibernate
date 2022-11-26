@@ -41,12 +41,15 @@ public class CustomerDAL {
 
     //Find
     public List findCustomers(String toFind) {
-        String hql = "Select * from Customers where CustomerId LIKE :toFind or FullName Like :toFind";
-        Query query = session.createQuery(hql);
-        query.setParameter("toFind", toFind);
-        List results = query.list();
+        List<Customers> customers;
+        session.beginTransaction();
+        String hql = "From Customers where CustomerId LIKE '%"+ toFind +"%' or FullName Like '%"+ toFind +"%'";
+        System.out.println("hql: " + hql);
+        customers = session.createQuery(hql)
+                .list();
+        
         session.getTransaction().commit();
-        return results;
+        return customers;
     }
 
     //Create
@@ -67,33 +70,29 @@ public class CustomerDAL {
 
         try {
             session.beginTransaction();
-            String hql = "Update Customers set Fullname = :fullname , Password = :pass , Address= :address , City = :city   "
-                    + "WHERE CUSTOMERID = :id";
-            Query query = session.createQuery(hql);
-            query.setParameter("id", c.getCustomerId());
-            query.setParameter("fullname", c.getFullName());
-            query.setParameter("pass", c.getPassword());
-            query.setParameter("address", c.getAddress());
-            query.setParameter("city", c.getCity());
-            int result = query.executeUpdate();
-            System.out.println("Rows affected:" +result);
             session.saveOrUpdate(c);
-
             session.getTransaction().commit();
 
+            
             return true;
         } catch (RuntimeException re) {
+
             return false;
         }
     }
 
-    public int deleteCustomer(int customerId) {
-        String hql = "DELETE FROM CUSTOMERS WHERE CustomerID = :id";
-        Query query = session.createQuery(hql);
-        query.setParameter("id", customerId);
-        int result = query.executeUpdate();
-        System.out.println("Rows affected:" + result);
-        return result;
+    public boolean deleteCustomer(Customers c) {
+        try {
+            session.beginTransaction();
+            session.delete(c);
+            session.getTransaction().commit();
+
+           
+            return true;
+        } catch (RuntimeException re) {
+
+            return false;
+        }
     }
 
 }

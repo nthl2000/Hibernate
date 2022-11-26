@@ -121,9 +121,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFind">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFindActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -138,7 +135,7 @@
         <Property name="text" type="java.lang.String" value="ADD"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
@@ -146,7 +143,7 @@
         <Property name="text" type="java.lang.String" value="UPDATE"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnUpdateMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDelete">
@@ -154,7 +151,7 @@
         <Property name="text" type="java.lang.String" value="DELETE"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDeleteMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnReload">
@@ -162,7 +159,7 @@
         <Property name="text" type="java.lang.String" value="RELOAD"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReloadMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReloadActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

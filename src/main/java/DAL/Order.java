@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DAL;
+
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -14,36 +15,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.*;
+
 /**
  *
  * @author Admin
  */
 @Data
 @Entity
-@Table (name = "order")
+@Table(name = "order")
 public class Order {
+
     @Id
     private int orderId;
     @Column
     private Date date;
-    @Column 
+    @Column
     private double total;
-    @Column 
+    @Column
     private String note;
+ 
+
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "CustomerId")
     private Customers customer;
-//    @OneToMany (mappedBy = "order")
-//    private List<OrderDetails> listOrderDetails;
-
-   
-
-    
-    
-    
-    
-    
-    
+    @OneToMany (mappedBy = "order")
+    private List<OrderDetails> listOrderDetails;
 }
-
-

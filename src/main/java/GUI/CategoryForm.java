@@ -25,7 +25,6 @@ public class CategoryForm extends javax.swing.JFrame {
 
     public CategoryForm() {
         initComponents();
-
         loadCategoryTable();
     }
 
